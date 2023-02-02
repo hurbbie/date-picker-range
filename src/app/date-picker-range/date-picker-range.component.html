@@ -1,0 +1,70 @@
+<div (click)="onDateActive()" style="cursor: pointer">
+  <span style="margin-right: 10px"
+    ><img src="assets/icons/calendar.png" alt="icon-date" />
+  </span>
+  {{ getDateFromPicker }}
+</div>
+<span
+  (click)="clearDate()"
+  style="
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 200;
+    margin-left: 20px;
+  "
+  >X</span
+>
+<div  class="popup" [ngClass]="active_popup ? 'active' : null">
+</div>
+
+<div class="col-12 bg-danger">
+  <div class="col-6">
+    <div class="row">
+      <div class="col-6 lg-6 mx-0 px-0">
+        <div class="card">
+          <div class="outerCard">
+            <div class="topPanel">
+              <button class="prevYearButton" (click)="decrementYear()">
+                <i class="arrow left"></i>
+              </button>
+              <span class="yearLabel">{{ years[currentYearIndex] }}</span>
+              <button class="nextYearButton" (click)="incrementYear()">
+                <i class="arrow right"></i>
+              </button>
+            </div>
+            <div class="contentPanel">
+              <div (click)="onClick(i)" class="monthItem" *ngFor="let month of monthDataSlice; let i = index" [ngClass]="{ isEdge: rangeIndexes[0]===globalIndexOffset+i || rangeIndexes[1]===globalIndexOffset+i, notCurrentYear: currentYearIndex===0? i > 11:(i < 6 || i > 17)}">
+                <div class="monthItemHighlight" [ngClass]="{ inRange: month.isInRange, isLowerEdge: month.isLowerEdge, isUpperEdge: month.isUpperEdge }">
+                  {{ month.monthName }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 lg-6 mx-0 px-0">
+        <div class="card">
+          <div class="outerCard">
+            <div class="topPanel">
+              <button class="prevYearButton">
+                <i class="arrow left"></i>
+              </button>
+              <span class="yearLabel">{{years}}</span>
+              <button class="nextYearButton">
+                <i class="arrow right"></i>
+              </button>
+            </div>
+            <div class="contentPanel">
+              <div class="monthItem" *ngFor="let month of monthsData">
+                <div class="monthItemHighlight">
+                  {{ month.monthName }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
